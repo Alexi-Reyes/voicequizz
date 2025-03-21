@@ -68,25 +68,50 @@ async function startQuiz() {
     Format: { question: "question Number:..."| answers: "1: ..., 2: ..., 3: ..., 4: ..."| correct_answer: "answer number" }`;
 
     try {
-        const response = await fetch('http://localhost:11434/api/generate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                model: "llama3.1",
-                prompt: prompt,
-                stream: false,
-                options: { temperature: 0.7, max_tokens: 500 }
-            })
-        });
+        // les requetes api ne fonctionne pas sur github pages 
+        // donc voici juste le resultat de la requete en local
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        // const response = await fetch('http://localhost:11434/api/generate', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({
+        //         model: "llama3.1",
+        //         prompt: prompt,
+        //         stream: false,
+        //         options: { temperature: 0.7, max_tokens: 500 }
+        //     })
+        // });
 
-        const data = await response.json();
-        const apiResponseText = data.response;
+        // if (!response.ok) {
+        //     throw new Error(`HTTP error! status: ${response.status}`);
+        // }
+
+        // const data = await response.json();
+        // const apiResponseText = data.response;
+        apiResponseText = `{ question: "What is the largest stadium in the UK?" | 
+            answers: "1: Wembley Stadium, 2: Old Trafford, 3: Camp Nou, 4: The Emirates Stadium" | 
+            correct_answer: "1" }
+
+            { question: "Who is the all-time leading scorer in cricket history?" | 
+            answers: "1: Sachin Tendulkar, 2: Brian Lara, 3: Sir Donald Bradman, 4: Vivian Richards" | 
+            correct_answer: "1" }
+
+            { question: "Which boxer won world titles in eight different weight divisions?" | 
+            answers: "1: Sugar Ray Robinson, 2: Muhammad Ali, 3: Floyd Mayweather Jr., 4: Joe Louis" | 
+            correct_answer: "1" }
+
+            { question: "What is the name of the famous tennis tournament held at Wimbledon?" | 
+            answers: "1: The French Open, 2: The Australian Open, 3: The US Open, 4: The Championships, Wimbledon" | 
+            correct_answer: "4" }
+
+            { question: "Who won the most Olympic gold medals in a single Games event?" | 
+            answers: "1: Michael Phelps, 2: Carl Lewis, 3: Usain Bolt, 4: Mark Spitz" | 
+            correct_answer: "1" }`;
+
+
+
         console.log("API Response Text:", apiResponseText);
 
         extractQuestionData(apiResponseText);
